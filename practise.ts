@@ -66,8 +66,11 @@
 
 //const thor =createHero({name: 'Thor',age: 1500})
 
+/*
+type HeroId =`${string}-${string}-${string}-${string}-${string}`
+
 type Hero ={
-      id?:number,
+      readonly id?:HeroId,
       name:string,
       age:number
       isActive?:boolean
@@ -80,10 +83,133 @@ type Hero ={
   
   function createHero(hero:Hero): Hero{
       const {name, age} =hero
-     return {name,age, isActive:true}
+     return { 
+      id:crypto.randomUUID(),
+      name,
+      age,
+      isActive:true
+    }
   }
   
-  const thor =createHero({name: 'thor',age: 1500})
+  const thor =Object.freeze(createHero({name: 'thor',age: 1500}))
   console.log(thor.isActive) // => true
+*/
 
-  thor.id?.toString()
+
+//Union types
+
+/*
+type HeroId =`${string}-${string}-${string}-${string}-${string}`
+type HeroPowerScale = 'local' | 'planetary' | 'galactic' | 'univesal' | 'multiversal' |
+'omnipresent'
+
+type HeroBasicInfo ={
+  name:string,
+  age:number
+}
+
+type HeroProperties ={
+      readonly id?:HeroId,
+      name:string,
+      age:number
+      isActive?:boolean
+      powerScale?:HeroPowerScale
+  }
+  
+ type Hero =HeroBasicInfo & HeroProperties
+
+  let hero:Hero ={
+      name:'Thor',
+      age:1500,
+  };
+  
+  function createHero(input: HeroBasicInfo): Hero{
+      const {name, age} =input
+     return { 
+      id:crypto.randomUUID(),
+      name,
+      age,
+      isActive:true
+    }
+  }
+  
+  const thor =Object.freeze(createHero({name: 'thor',age: 1500}))
+  console.log(thor.isActive) // => true
+*/
+
+//Type Indexing
+
+/*
+type HeroProperties ={
+  isActive :boolean,
+  address:{
+    planet:string,
+    citiy:string
+  }
+}
+
+const addresHero :HeroProperties['address'] ={
+  planet:'Earth',
+  city:'Madrid'
+}
+*/
+
+//Type from value
+
+/*
+const address ={
+  planet :'Earth',
+  city:'Madrid'
+}
+
+type Address =typeof address 
+
+const addresTwitch:Address ={
+  planet:'Mars',
+  city:'Twitch'
+}
+*/
+
+//Type from function return
+
+/*
+function createAddress () {
+  return {
+    planet:'Tierra',
+    city:'Barcelona'
+  }
+} 
+
+type Address =ReturnType <typeof createAddress>
+*/
+
+const lenguages:(string | number) [] = []
+
+lenguages.push('JavaScript')
+lenguages.push('JavaScript')
+lenguages.push('JavaScript')
+lenguages.push('JavaScript')
+lenguages.push(2)
+
+/*
+type CellValue = 'X' | 'O' | ''
+type GameBoard =[
+  [CellValue,CellValue, CellValue],
+  [CellValue,CellValue, CellValue],
+  [CellValue,CellValue, CellValue]
+]
+
+const gameBoard :string [][] =[
+  ["x",'0','x'],
+  ["x",'0','x'],
+  ["x",'0','x']
+]
+*/
+
+type CellValue = 'X' | 'O' | ''
+type GameBoard =[
+  [CellValue,CellValue, CellValue],
+  [CellValue,CellValue, CellValue],
+  [CellValue,CellValue, CellValue]
+]
+
